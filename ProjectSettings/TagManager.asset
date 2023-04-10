@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Unselectable
+  - Prefabs/Environment/Cube
+  - Prefabs/Environment/Sphere
+  - Prefabs/Character/Cylinder
+  - Prefabs/Character/Capsule
+  - Prefabs/Tools/Orange
+  - Prefabs/X/Blue
+  - Prefabs/Z/Mehmet
+  - Prefabs/Z/Ahmet
+  - Prefabs/env
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
