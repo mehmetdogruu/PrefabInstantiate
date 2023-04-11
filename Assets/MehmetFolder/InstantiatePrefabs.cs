@@ -10,6 +10,7 @@ public class InstantiatePrefabs : MonoBehaviour
     public List<GameObject> objectList;
     public List<GameObject> variantList;
     public List<GameObject> prefabList;
+    private GameObject[] prefabsArray;
 
     private List<int> categoryPrefabCount;
     private List<int> categoryPrefabIndex;
@@ -28,7 +29,13 @@ public class InstantiatePrefabs : MonoBehaviour
 
     private void Awake()
     {
-        objectList = Resources.LoadAll<GameObject>("Prefabs").ToList();
+        //objectList = Resources.LoadAll<GameObject>("Prefabs").ToList();
+        string[] IGuids = AssetDatabase.FindAssets("t:GameObject", new string[] { "Assets/Prefabs" });
+        for (int i = 0; i < IGuids.Length; i++)
+        {
+            string IAssetPath=AssetDatabase.GUIDToAssetPath(IGuids[i]);
+            objectList.Add(AssetDatabase.LoadAssetAtPath<GameObject>(IAssetPath));
+        }
 
         for (int i = 0; i < objectList.Count; i++)
         {
@@ -81,7 +88,7 @@ public class InstantiatePrefabs : MonoBehaviour
             }
             categoryPrefabIndex[i] += categoryOffset*i;
             tmpText.text = categoryList[i].ToString();
-            Instantiate(tmpText, new Vector3(categoryPrefabIndex[i], 0.01f, -2f), Quaternion.Euler(90f,0,0));
+            Instantiate(tmpText, new Vector3(categoryPrefabIndex[i], 0.01f, -5f), Quaternion.Euler(90f,0,0));
         }
 
         for (int i = 0; i < prefabList.Count; i++)

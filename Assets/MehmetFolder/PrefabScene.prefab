@@ -214,7 +214,7 @@ MonoBehaviour:
     keyword is which tag you want to set your prefab.
 
     -Prefabs should be in
-    Resources/Prefabs folder.
+    Assets/Prefabs folder.
 
 '
   m_isRightToLeft: 0

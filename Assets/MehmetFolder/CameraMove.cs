@@ -6,48 +6,33 @@ using System;
 
 public class CameraMove : MonoBehaviour
 {
-    //public float Speed = .3f;
-
-    //void Update()
-    //{
-    //    float xAxisValue = Input.GetAxis("Horizontal") * Speed;
-    //    float zAxisValue = Input.GetAxis("Vertical") * Speed;
-    //    float yValue = 0.0f;
-
-    //    if (Input.GetKey(KeyCode.Q))
-    //    {
-    //        yValue = -Speed;
-    //    }
-    //    if (Input.GetKey(KeyCode.E))
-    //    {
-    //        yValue = Speed;
-    //    }
-
-    //    transform.position = new Vector3(transform.position.x + xAxisValue, transform.position.y + yValue, transform.position.z + zAxisValue);
-    //}
-
     float mainSpeed = 5.0f; //regular speed
     float shiftAdd = 25.0f; //multiplied by how long shift is held.  Basically running
     float maxShift = 100.0f; //Maximum speed when holdin gshift
-    float camSens = 0.15f; //How sensitive it with mouse
-    private Vector3 lastMouse/* = new Vector3(255, 255, 255)*/; //kind of in the middle of the screen, rather than at the top (play)
+    public Vector2 turn;
+    public float sens = .5f;
+    public Vector3 deltaMove;
+    public float camSpeed;
     private float totalRun = 1.0f;
 
     void Update()
     {
         if (Input.GetMouseButton(1))
         {
-            lastMouse = Input.mousePosition - lastMouse;
-            lastMouse = new Vector3(-lastMouse.y * camSens, lastMouse.x * camSens, 0);
-            lastMouse = new Vector3(transform.eulerAngles.x + lastMouse.x, transform.eulerAngles.y + lastMouse.y, 0);
-            transform.eulerAngles = lastMouse;
-            lastMouse = Input.mousePosition;
-        }
-            //Mouse  camera angle done.  
+            turn.x += Input.GetAxis("Mouse X") * sens;
+            turn.y += Input.GetAxis("Mouse Y") * sens;
+            transform.localRotation = Quaternion.Euler(-turn.y, turn.x, 0);
 
-            //Keyboard commands
-            //float f = 0.0f;
-            Vector3 p = GetBaseInput();
+            deltaMove = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")) * camSpeed * Time.deltaTime;
+            transform.Translate(deltaMove);
+
+        }
+
+        //Mouse  camera angle done.  
+
+        //Keyboard commands
+
+        Vector3 p = GetBaseInput();
             if (p.sqrMagnitude > 0)
             { // only move while a direction key is pressed
                 if (Input.GetKey(KeyCode.LeftShift))
@@ -79,9 +64,7 @@ public class CameraMove : MonoBehaviour
                 }
             }
         }
-        
-    
-
+     
     private Vector3 GetBaseInput()
     { //returns the basic values, if it's 0 than it's not active.
         Vector3 p_Velocity = new Vector3();
